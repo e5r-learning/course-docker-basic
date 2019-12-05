@@ -100,10 +100,29 @@ $ docker run --rm -v c:/Users:/data alpine ls /data
 	  > 3 - Veja que os dados ficam em sua máquina
 	- Volumes ???
 
-7) Dev
+7) Dev - A anatomia do Dockerfile
 - Arquivo Dockerfile
+```Dockerfile
+FROM perl:5.20
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+CMD [ "perl", "./your-daemon-or-script.pl" ]
+```
 - Criar imagens
 - Subir imagens
+- Build pipeline
+```Dockerfile
+FROM perl:5.26
+
+RUN cpanm Carton \
+    && mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+ONBUILD COPY cpanfile* /usr/src/myapp
+ONBUILD RUN carton install
+
+ONBUILD COPY . /usr/src/app
+```
 
 8) Visual Studio Code + Docker
 - Executar tudo em um container
