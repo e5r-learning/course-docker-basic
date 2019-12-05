@@ -27,6 +27,9 @@ $ docker run --interactive --tty ubuntu bash
 root@8aea0acb7423:/# hostname
 8aea0acb7423
 root@8aea0acb7423:/# exit
+
+# ou
+$ docker run -it ubuntu bash
 ```
 - Aqui é como usar uma máquina virtual
 - Mas, basicamente, não é pra isso que usamos docker
@@ -35,14 +38,20 @@ root@8aea0acb7423:/# exit
 $ docker run hello-world --name hello
 $ docker run --interactive --tty --name myubuntu ubuntu bash
 ```
-- O --name
+- Antes um `docker container ls -all` revela muitos containers.
+  - Mais precisamente, um por execução. Lixo
+- `docker container prune` Remove containers não usados
+- O --name é mais fácil de você encontrar seu container
+- `docker start {CONTAINER ID}` para reexecutar o containar
+- `docker start -i {CONTAINER ID}` para reexecutar o containar em modo interativo
 
 3) Diferença de imagens para containers
 ```
 $ docker image ls
 $ docker container ls --all
 ```
-- ???
+- Imagens são templates
+- Containers são objetos dos templates em execução (ou parados)
 
 4) Rodando um container pra servir algo localmente
 ```
