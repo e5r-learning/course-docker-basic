@@ -42,6 +42,7 @@ $ docker run --interactive --tty --name myubuntu ubuntu bash
   - Mais precisamente, um por execução. Lixo
 - `docker container prune` Remove containers não usados
 - O --name é mais fácil de você encontrar seu container
+  > E permite usar um só container por imagem. Polui menos
 - `docker start {CONTAINER ID}` para reexecutar o containar
 - `docker start -i {CONTAINER ID}` para reexecutar o containar em modo interativo
 
@@ -53,7 +54,16 @@ $ docker container ls --all
 - Imagens são templates
 - Containers são objetos dos templates em execução (ou parados)
 
-4) Rodando um container pra servir algo localmente
+4) Usando docker para executar projetos locais
+
+Rodar scripts em pasta local no docker
+```
+$ docker run -it --rm --name my-project -v "$PWD":/usr/src/myapp -w /usr/src/myapp perl:latest perl my-local-script.pl
+```
+- O `--rm` é pra remover automaticamente o container quando existir com o `--name` informado
+  > Serve para evitar poluções de containers não utilizados
+
+Rodando um container pra servir algo localmente
 ```
 $ docker run --publish 80:80 --name webserver nginx
 $ docker run --detach --publish 80:80 --name webserver nginx
@@ -71,7 +81,7 @@ $ docker container rm webserver laughing_kowalevski relaxed_sammet
 $ docker container stop webserver
 ```
 
-4) Interface de configuração
+5) Interface de configuração
 - Start on login
 - Automatic check for update
 - Send usage statistics
@@ -88,13 +98,13 @@ $ docker run --rm -v c:/Users:/data alpine ls /data
 ```
 - SHARED DRIVES ON DEMAND
 
-5) Interconexão entre os containers
+6) Interconexão entre os containers
 - ???
 - Basicamente subir uma imagem que dependa de serviços e,
   > Ver que os containers são criados automaticamente
   > Ex: Um serviço que usa banco de dados
 
-6) Docker para dev, fluxos básicos
+7) Docker para dev, fluxos básicos
 - Listar alguns fluxos do dia a dia
   > Rodar um comando em um container
   > Entrar em um container para usar como máquina
@@ -109,7 +119,7 @@ $ docker run --rm -v c:/Users:/data alpine ls /data
 	  > 3 - Veja que os dados ficam em sua máquina
 	- Volumes ???
 
-7) Dev - A anatomia do Dockerfile
+8) Dev - A anatomia do Dockerfile
 - Arquivo Dockerfile
 ```Dockerfile
 FROM perl:5.20
@@ -133,5 +143,5 @@ ONBUILD RUN carton install
 ONBUILD COPY . /usr/src/app
 ```
 
-8) Visual Studio Code + Docker
+9) Visual Studio Code + Docker
 - Executar tudo em um container
